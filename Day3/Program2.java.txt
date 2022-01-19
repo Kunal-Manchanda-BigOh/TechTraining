@@ -13,7 +13,7 @@ public class Program2 {
 				chessBoard[i][j] = 0;
 			}
 		}
-		displayBoard(chessBoard);
+		displayBoard(chessBoard); // Display chessboard
 		
 		int[][] positionList = new int[5][2]; // To hold the position of Horse, Camel, Queen, Elephant, King
 		
@@ -113,7 +113,7 @@ public class Program2 {
 	}
 	
 	static boolean isSafeFromHorse(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from horse or not
-		if((row-2)>=0) {
+		if((row-2)>=0) { // Checking upwards
 			int leftMoveColumn = col - 1;
 			int rightMoveColumn = col + 1;
 			if((leftMoveColumn>=0) && ((row-2) == kingRow) && (leftMoveColumn == kingColumn)){ // Checking horse left move
@@ -125,13 +125,26 @@ public class Program2 {
 				return false;
 			}
 		}
+		
+		if((row+2)<=7) { // Checking downwards
+			int leftMoveColumn = col - 1;
+			int rightMoveColumn = col + 1;
+			if((leftMoveColumn>=0) && ((row+2) == kingRow) && (leftMoveColumn == kingColumn)){ // Checking horse left move
+				System.out.println("Not safe from Horse");
+				return false;
+			}
+			if((rightMoveColumn <= 7) && ((row+2) == kingRow) && (rightMoveColumn == kingColumn)) { // Checking horse right move
+				System.out.println("Not Safe from Horse");
+				return false;
+			}
+		}
 		return true;
 	}
 	
 	static boolean isSafeFromCamel(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from camel or not
 		int tempRow = row;
 		int tempCol = col;
-		while((tempRow >= 0) && (tempCol >= 0)) { //Checking left Diagonal
+		while((tempRow >= 0) && (tempCol >= 0)) { //Checking upward left Diagonal
 			if((tempRow == kingRow) && (tempCol == kingColumn)){
 				System.out.println("Not Safe from Camel");
 				return false;
@@ -139,14 +152,37 @@ public class Program2 {
 			tempRow--;
 			tempCol--;
 		}
+		
 		tempRow = row;
 		tempCol = col;
-		while((tempRow >= 0) && (tempCol <= 7)) { //Checking right Diagonal
+		while((tempRow >= 0) && (tempCol <= 7)) { //Checking upward right Diagonal
 			if((tempRow == kingRow) && (tempCol == kingColumn)){
 				System.out.println("Not Safe from Camel");
 				return false;
 			}
 			tempRow--;
+			tempCol++;
+		}
+		
+		tempRow = row;
+		tempCol = col;
+		while((tempRow <= 7) && (tempCol >= 0)) { //Checking downward left Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Camel");
+				return false;
+			}
+			tempRow++;
+			tempCol--;
+		}
+		
+		tempRow = row;
+		tempCol = col;
+		while((tempRow <= 7) && (tempCol <= 7)) { //Checking downward right Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Camel");
+				return false;
+			}
+			tempRow++;
 			tempCol++;
 		}
 		return true;
@@ -155,24 +191,48 @@ public class Program2 {
 	static boolean isSafeFromQueen(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from queen or not
 		int tempRow = row;
 		int tempCol = col;
-		while((tempRow >= 0) && (tempCol >= 0)) { //Checking left Diagonal
+		while((tempRow >= 0) && (tempCol >= 0)) { //Checking upward left Diagonal
 			if((tempRow == kingRow) && (tempCol == kingColumn)){
-				System.out.println("Not Safe from Queen");
+				System.out.println("Not Safe from Camel");
 				return false;
 			}
 			tempRow--;
 			tempCol--;
 		}
+		
 		tempRow = row;
 		tempCol = col;
-		while((tempRow >= 0) && (tempCol <= 7)) { //Checking right Diagonal
+		while((tempRow >= 0) && (tempCol <= 7)) { //Checking upward right Diagonal
 			if((tempRow == kingRow) && (tempCol == kingColumn)){
-				System.out.println("Not Safe from Queen");
+				System.out.println("Not Safe from Camel");
 				return false;
 			}
 			tempRow--;
 			tempCol++;
 		}
+		
+		tempRow = row;
+		tempCol = col;
+		while((tempRow <= 7) && (tempCol >= 0)) { //Checking downward left Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Camel");
+				return false;
+			}
+			tempRow++;
+			tempCol--;
+		}
+		
+		tempRow = row;
+		tempCol = col;
+		while((tempRow <= 7) && (tempCol <= 7)) { //Checking downward right Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Camel");
+				return false;
+			}
+			tempRow++;
+			tempCol++;
+		}
+		
 		tempRow = row;
 		tempCol = col;
 		while(tempRow>=0) { // Checking upward direction
@@ -181,6 +241,16 @@ public class Program2 {
 				return false;
 			}
 			tempRow--;
+		}
+		
+		tempRow = row;
+		tempCol = col;
+		while(tempRow<=7) { // Checking downward direction
+			if((tempRow == kingRow) && (tempCol == kingColumn)) {
+				System.out.println("Not Safe from Queen");
+				return false;
+			}
+			tempRow++;
 		}
 		return true;
 	}
@@ -195,6 +265,17 @@ public class Program2 {
 			}
 			tempRow--;
 		}
+		
+		tempRow = row;
+		tempCol = col;
+		while(tempRow<=7) { // Checking downward direction
+			if((tempRow == kingRow) && (tempCol == kingColumn)) {
+				System.out.println("Not Safe from Queen");
+				return false;
+			}
+			tempRow++;
+		}
+		
 		tempRow = row;
 		tempCol = col;
 		while(tempCol>=0) { // Checking left Direction
@@ -204,6 +285,7 @@ public class Program2 {
 			}
 			tempCol--;
 		}
+		
 		tempRow = row;
 		tempCol = col;
 		while(tempCol<=7) { // Checking right Direction
