@@ -6,21 +6,21 @@ public class Program3 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter N:");
-		int n = sc.nextInt();
-		if(n%2!=0 && n>4)
-			printPattern(n);
+		int size = sc.nextInt();
+		if(size%2!=0 && size>4)
+			printPattern(size);
 		else
 			System.out.println("Pattern Not Possible");
 		sc.close();
 	}
 	
-	static void printPattern(int n) {
+	static void printPattern(int size) {
 		int leftSlashIndex = 0; // To hold the index of the left diagonal slash
-		int rightSlashIndex = n-1; // To hold the index of the right diagonal slash
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
+		int rightSlashIndex = size-1; // To hold the index of the right diagonal slash
+		for(int i=0; i<size; i++) { // Traversing row
+			for(int j=0; j<size; j++) { // Traversing column
 				if(j==leftSlashIndex) {
-					if(i!=(int)(n/2)) {
+					if(i!=(int)(size/2)) {
 						System.out.print("\\ ");
 					}
 				}

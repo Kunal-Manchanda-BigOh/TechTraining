@@ -10,9 +10,9 @@ public class Program1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter size of array:");
-		int n = sc.nextInt();
-		int[] list = new int[n];
-		for(int i=0; i<n; i++) {
+		int size = sc.nextInt();
+		int[] list = new int[size];
+		for(int i=0; i<size; i++) {
 			System.out.println("Enter number:");
 			list[i] = sc.nextInt();
 		}
@@ -34,15 +34,15 @@ public class Program1 {
 		tempList[0] = values[0];
 		int currentIndex = 1; // It holds the index of the last filled element in the list
 		int flag = 0;
-		for(int i=1; i<values.length; i++) {
+		for(int i=1; i<values.length; i++) { // Traversing the values list
 			flag = 0;
-			for(int j=0; j<currentIndex; j++) {
+			for(int j=0; j<currentIndex; j++) { // Checking if the temp list contains the current element
 				if(tempList[j] == values[i]) {
 					flag = 1;
 					break;
 				}
 			}
-			if(flag == 0) {
+			if(flag == 0) { // Current element is not repeated
 				tempList[currentIndex] = values[i];
 				currentIndex++;
 			}

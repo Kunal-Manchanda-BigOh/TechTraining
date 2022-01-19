@@ -15,9 +15,9 @@ public class Program2 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter array size:");
-		int n = sc.nextInt();
-		ArrayList<Integer> list = new ArrayList<Integer>(n);
-		for(int i=0; i<n; i++) {
+		int size = sc.nextInt();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i=0; i<size; i++) {
 			System.out.println("Enter element:");
 			list.add(sc.nextInt());
 		}
@@ -33,9 +33,9 @@ public class Program2 {
 	
 	static ArrayList<ArrayList<Integer>> findTriplets(ArrayList<Integer> list, int targetSum){
 		ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>(); // Two dimensional array to hold the triplets
-		int n = list.size();
-		if(n>=3) { // The array size should be greater than 3
-			for(int i=0; i<n-2; i++) {
+		int size = list.size();
+		if(size>=3) { // The array size should be greater than 3
+			for(int i=0; i<size-2; i++) {
 				if((list.get(i) + list.get(i+1) + list.get(i+2)) == targetSum) { // Triplet found
 					results.add(new ArrayList<Integer>(Arrays.asList(list.get(i), list.get(i+1), list.get(i+2))));
 				}
