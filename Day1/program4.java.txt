@@ -1,0 +1,31 @@
+//Write a function Boolean isValidURL(String url).
+
+import java.util.regex.*;
+import java.util.*;
+ 
+class Assignment{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter url:");
+        String url = sc.next();
+        System.out.println(validateURL(url));
+    }
+    
+    static boolean validateURL(String url){
+         String regex = "((http|https)://)(www.)?"
+              + "[a-zA-Z0-9@:%._\\+~#?&//=]"
+              + "{2,256}\\.[a-z]"
+              + "{2,6}\\b([-a-zA-Z0-9@:%"
+              + "._\\+~#?&//=]*)";
+ 
+        Pattern p = Pattern.compile(regex); // compile the regex
+ 
+        if (url == null) { // check if url is null or not
+            return false;
+        }
+ 
+        Matcher m = p.matcher(url);
+ 
+        return m.matches(); 
+    }
+}

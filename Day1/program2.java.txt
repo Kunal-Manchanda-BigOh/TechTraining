@@ -1,0 +1,32 @@
+//Write a program (without using inbuilt functions and not using Strings or array) to swap first and last digits of any number
+
+import java.lang.*;
+import java.util.*;
+ 
+class Assignment {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Number:");
+        int n = sc.nextInt();
+        System.out.println(swap(n));
+    }
+    
+    static int swap(int N){
+        int x = N;
+        int count = 0; //to count the number of digits
+        while(x!=0){
+            x=x/10;
+            ++count;
+        }
+        x=N;
+        int lastDigit = x%10; //to hold the last digit
+        while(x>=10){
+            x = x/10;
+        }
+        int firstDigit = x; // to hold the first digit
+        
+        N = (N-lastDigit) + firstDigit;
+        N = (N - (firstDigit*((int)Math.pow(10,count-1)))) + (lastDigit*(int)Math.pow(10,count-1));
+        return N;
+    }
+}

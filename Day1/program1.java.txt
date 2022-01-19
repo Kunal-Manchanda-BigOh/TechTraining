@@ -1,0 +1,42 @@
+/*Write down a method boolean isNameValid(String  name).
+*A name is valid if following conditions are satisfied:
+*• It does not contain any vowel more than once.
+*• If the name contains two ‘S’, then there is not any ‘T’ in between them (both in capital cases).
+*/
+
+ static boolean isNameValid(String name){
+        int count = 0; //to count the number of vowels
+        String lowerCaseName = name.toLowerCase();
+        for(int i=0; i<lowerCaseName.length(); i++){
+            if(lowerCaseName.charAt(i) == 'a' || lowerCaseName.charAt(i) == 'e' || lowerCaseName.charAt(i) == 'i' || lowerCaseName.charAt(i) == 'o' || lowerCaseName.charAt(i) == 'u'){
+                count++;
+            }
+        }
+        if(count == 0 || count == 1){  //first condition satisfied
+            int index1 = -1, index2 = -1; // to hold the indexes of letter "S"
+            for(int i=0; i<name.length(); i++){
+                if(name.charAt(i) == 'S'){
+                    if(index1 == -1){
+                        index1 = i;
+                    }
+                    else if(index2 == -1){
+                        index2 = i;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+            if(index1 != -1 && index2 != -1){  //name contains two "S"
+                for(int i=index1; i<=index2; i++){
+                    if(name.charAt(i) == 'T'){
+                        return false;
+                    }
+                }
+                return true;
+            } else{
+                return true;
+            }
+        }
+            return false;
+        }
