@@ -1,0 +1,218 @@
+/*
+ * Write a method Boolean isKingSafe(int[][]chessBoard)
+ *Returns true if king in the given chess board is safe from the given enemies otherwise false;
+ */
+import java.util.*;
+
+public class Program2 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int[][] chessBoard = new int[8][8];
+		for(int i=0; i<8; i++) { // Inserting all the values of chessboard to zero
+			for(int j=0; j<8; j++) {
+				chessBoard[i][j] = 0;
+			}
+		}
+		displayBoard(chessBoard);
+		
+		int[][] positionList = new int[5][2]; // To hold the position of Horse, Camel, Queen, Elephant, King
+		
+		
+		inputPosition("Horse",chessBoard, positionList);
+		displayBoard(chessBoard);
+		
+		inputPosition("Camel",chessBoard, positionList);
+		displayBoard(chessBoard);
+		
+		inputPosition("Queen",chessBoard, positionList);
+		displayBoard(chessBoard);
+		
+		inputPosition("Elephant",chessBoard, positionList);
+		displayBoard(chessBoard);
+		
+		inputPosition("King",chessBoard, positionList);
+		displayBoard(chessBoard);
+		
+		System.out.println("King Safe:" + isKingSafe(chessBoard, positionList));
+		
+		sc.close();
+	}
+	
+	static void displayBoard(int[][] chessBoard) { // To display the chessboard with current state
+		for(int i=0; i<8; i++) {
+			System.out.println("----------------------------------");
+			for(int j=0; j<8; j++) {
+				if(chessBoard[i][j] == -1)
+					System.out.print("| " + "H" + " ");
+				else if(chessBoard[i][j] == -2)
+					System.out.print("| " + "C" + " ");
+				else if(chessBoard[i][j] == -3)
+					System.out.print("| " + "Q" + " ");
+				else if(chessBoard[i][j] == -4)
+					System.out.print("| " + "E" + " ");
+				else if(chessBoard[i][j] == -5)
+					System.out.print("| " + "K" + " ");
+				else
+					System.out.print("|   ");
+			}
+			System.out.println("|");
+			System.out.println();
+		}
+	}
+	
+	static void inputPosition(String name, int[][] chessBoard, int[][] positions) { // To input the positions of different chess pieces
+		while(true) {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter the position of " + name + ":");
+			System.out.println("Row:");
+			int row = sc.nextInt();
+			System.out.println("Column:");
+			int column = sc.nextInt();
+			if(row < 0 || row > 7 || column <0 || column > 7 || chessBoard[row][column] < 0) { // Entered position is not valid
+				System.out.println("Not Possible");
+				continue;
+			}
+			int value = 0;
+			if(name == "Horse") {
+				value = -1; // Position value for Horse
+				positions[0][0] = row;
+				positions[0][1] = column;
+			}
+			else if(name == "Camel") {
+				value = -2; // Position value for Camel
+				positions[1][0] = row;
+				positions[1][1] = column;
+			}
+			else if(name == "Queen") {
+				value = -3; // Position value for Queen
+				positions[2][0] = row;
+				positions[2][1] = column;
+			}
+			else if(name == "Elephant") {
+				value = -4; // Position value for Elephant
+				positions[3][0] = row;
+				positions[3][1] = column;
+			}
+			else {
+				value = -5; // Position value for king
+				positions[4][0] = row;
+				positions[4][1] = column;
+			}
+			chessBoard[row][column] = value;
+			break;
+		}
+	}
+	
+	static boolean isKingSafe(int[][] chessBoard, int[][] positions) { // Check whether the king is safe or not
+		if(isSafeFromHorse(positions[0][0], positions[0][1], positions[4][0], positions[4][1]) 
+			&& isSafeFromCamel(positions[1][0], positions[1][1],  positions[4][0], positions[4][1]) 
+			&& isSafeFromQueen(positions[2][0], positions[2][1], positions[4][0], positions[4][1]) 
+			&& isSafeFromElephant(positions[3][0], positions[3][1], positions[4][0], positions[4][1]))
+			return true;
+		return false;
+	}
+	
+	static boolean isSafeFromHorse(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from horse or not
+		if((row-2)>=0) {
+			int leftMoveColumn = col - 1;
+			int rightMoveColumn = col + 1;
+			if((leftMoveColumn>=0) && ((row-2) == kingRow) && (leftMoveColumn == kingColumn)){ // Checking horse left move
+				System.out.println("Not safe from Horse");
+				return false;
+			}
+			if((rightMoveColumn <= 7) && ((row-2) == kingRow) && (rightMoveColumn == kingColumn)) { // Checking horse right move
+				System.out.println("Not Safe from Horse");
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	static boolean isSafeFromCamel(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from camel or not
+		int tempRow = row;
+		int tempCol = col;
+		while((tempRow >= 0) && (tempCol >= 0)) { //Checking left Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Camel");
+				return false;
+			}
+			tempRow--;
+			tempCol--;
+		}
+		tempRow = row;
+		tempCol = col;
+		while((tempRow >= 0) && (tempCol <= 7)) { //Checking right Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Camel");
+				return false;
+			}
+			tempRow--;
+			tempCol++;
+		}
+		return true;
+	}
+	
+	static boolean isSafeFromQueen(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from queen or not
+		int tempRow = row;
+		int tempCol = col;
+		while((tempRow >= 0) && (tempCol >= 0)) { //Checking left Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Queen");
+				return false;
+			}
+			tempRow--;
+			tempCol--;
+		}
+		tempRow = row;
+		tempCol = col;
+		while((tempRow >= 0) && (tempCol <= 7)) { //Checking right Diagonal
+			if((tempRow == kingRow) && (tempCol == kingColumn)){
+				System.out.println("Not Safe from Queen");
+				return false;
+			}
+			tempRow--;
+			tempCol++;
+		}
+		tempRow = row;
+		tempCol = col;
+		while(tempRow>=0) { // Checking upward direction
+			if((tempRow == kingRow) && (tempCol == kingColumn)) {
+				System.out.println("Not Safe from Queen");
+				return false;
+			}
+			tempRow--;
+		}
+		return true;
+	}
+	
+	static boolean isSafeFromElephant(int row, int col, int kingRow, int kingColumn) { // Check whether the king is safe from elephant or not
+		int tempRow = row;
+		int tempCol = col;
+		while(tempRow>=0) { // Checking upward direction
+			if((tempRow == kingRow) && (tempCol == kingColumn)) {
+				System.out.println("Not Safe from Elephant");
+				return false;
+			}
+			tempRow--;
+		}
+		tempRow = row;
+		tempCol = col;
+		while(tempCol>=0) { // Checking left Direction
+			if((tempRow == kingRow) && (tempCol == kingColumn)) {
+				System.out.println("Not Safe from Elephant");
+				return false;
+			}
+			tempCol--;
+		}
+		tempRow = row;
+		tempCol = col;
+		while(tempCol<=7) { // Checking right Direction
+			if((tempRow == kingRow) && (tempCol == kingColumn)) {
+				System.out.println("Not Safe from Elephant");
+				return false;
+			}
+			tempCol++;
+		}
+		return true;
+	}
+}

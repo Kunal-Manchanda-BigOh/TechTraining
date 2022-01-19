@@ -1,0 +1,144 @@
+/*
+ * Write a method Boolean isValidSudoku(int[][]Sudoku)
+ *Returns true if the given Sudoku is correctly arranged otherwise false
+ */
+import java.util.*;
+
+public class Program1 {
+	public static void main(String[] args) {
+			int[][] board = {
+				 {5,3,0,0,7,0,0,0,0}
+				,{6,0,0,1,9,5,0,0,0}
+				,{0,9,8,0,0,0,0,6,0}
+				,{8,0,0,0,6,0,0,0,3}
+				,{4,0,0,8,0,3,0,0,1}
+				,{7,9,0,0,2,0,0,0,6}
+				,{0,6,0,0,0,0,2,8,0}
+				,{0,0,0,4,1,9,0,0,5}
+				,{0,0,0,0,8,0,0,7,9}
+			};
+		
+		System.out.println("Board:");
+		System.out.println();
+		for(int i=0; i<9; i++) {
+			for(int j=0; j<9; j++) {
+				System.out.print(board[i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println(isValidSudoko(board));
+	}
+	
+	static void fillArray(ArrayList<Integer> list){ // Fill array with numbers 0-9
+		list.clear();
+		for(int i=0; i<=9; i++) {
+			list.add(i);
+		}
+	}
+	
+	static boolean isValidSudoko(int[][] sudoko) { // Check if Sudoko is valid or not
+		ArrayList<Integer> tempList = new ArrayList<Integer>();
+		fillArray(tempList);
+		
+		for(int i=0; i<9; i++) {  // Row Condition
+			fillArray(tempList);
+			for(int j=0; j<9; j++) {
+				if(tempList.contains(sudoko[i][j])) {
+					int index = tempList.indexOf(sudoko[i][j]);
+					if(sudoko[i][j] != 0)
+						tempList.remove(index);
+				}
+				else {
+					System.out.println("Row condition dissatisfied at row " + i);
+					return false;
+				}
+			}
+		}
+		
+		for(int i=0; i<9; i++) {  // Column Condition
+			fillArray(tempList);
+			for(int j=0; j<9; j++) {
+				if(tempList.contains(sudoko[j][i])) {
+					int index = tempList.indexOf(sudoko[j][i]);
+					if(sudoko[j][i] != 0)
+						tempList.remove(index);
+				}
+				else {
+					System.out.println("Column condition dissatisfied at column " + j);
+					return false;
+				}
+			}
+		}
+		
+		int[][] subBoxesList = new int[9][9]; // To hold the subBoxes numbers
+		int index1=0, index2=0, index3=0, index4=0, index5=0, index6=0, index7=0, index8=0, index9=0;
+		
+		for(int i=0; i<9; i++) {
+			for(int j=0; j<9; j++) {
+				if(i<=2 && j<=2) { //First SubBox
+					subBoxesList[0][index1] = sudoko[i][j];
+					index1++;
+				}
+				else if(i<=2 && j>=3 && j<=5) { //Second SubBox
+					subBoxesList[1][index2] = sudoko[i][j];
+					index2++;
+				}
+				else if(i<=2 && j>=6) { //Third SubBox
+					subBoxesList[2][index3] = sudoko[i][j];
+					index3++;
+				}
+				
+				else if(i>=3 && i<=5 && j<=2) { //Fourth SubBox
+					subBoxesList[3][index4] = sudoko[i][j];
+					index4++;
+				}
+				else if(i>=3 && i<=5 && j<=5) { //Fifth SubBox
+					subBoxesList[4][index5] = sudoko[i][j];
+					index5++;
+				}
+				else if(i>=3 && i<=5 && j>=6) { //Sixth SubBox
+					subBoxesList[5][index6] = sudoko[i][j];
+					index6++;
+				}
+				
+				else if(i>=6 && j<=2) { //Seventh SubBox
+					subBoxesList[6][index7] = sudoko[i][j];
+					index7++;
+				}
+				else if(i>=6 && j>=3 && j<=5) { //Eighth SubBox
+					subBoxesList[7][index8] = sudoko[i][j];
+					index8++;
+				}
+				else if(i>=6 && i<=5 && j>=6) { //Ninth SubBox
+					subBoxesList[8][index9] = sudoko[i][j];
+					index9++;
+				}
+			}
+		}
+		
+		
+		for(int i=0; i<9; i++) {  // SubBox Condition
+			fillArray(tempList);
+			for(int j=0; j<9; j++) {
+				if(tempList.contains(subBoxesList[i][j])) {
+					int index = tempList.indexOf(subBoxesList[i][j]);
+					if(subBoxesList[i][j] != 0)
+						tempList.remove(index);
+				}
+				else {
+					System.out.println("SubBox condition dissatisfied at subBox:");
+					for(int k=0; k<9; k++) { // Displaying the subBox which does not match with the condition
+						if((k)%3 == 0) {
+							System.out.println();
+						}
+						System.out.print(subBoxesList[i][k] + " ");
+					}
+					System.out.println();
+					return false;
+				}
+			}
+		}
+		
+		return true; // Valid Sudoko Board
+	}
+}
