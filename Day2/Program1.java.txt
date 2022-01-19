@@ -1,0 +1,56 @@
+/*
+ * Write a program to remove duplicate values 
+ * from an array and returns an array of unique values. 
+ * int[] removeDuplicates(int[]values)
+ */
+
+import java.util.*;
+
+public class Program1 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter size of array:");
+		int n = sc.nextInt();
+		int[] list = new int[n];
+		for(int i=0; i<n; i++) {
+			System.out.println("Enter number:");
+			list[i] = sc.nextInt();
+		}
+		System.out.println("Previous array:");
+		for(int i=0; i<list.length; i++) {
+			System.out.print(list[i] + " ");
+		}
+		System.out.println();
+		System.out.println("After Removing Duplicates:");
+		int[] removedDuplicatesList = removeDuplicates(list);
+		for(int i=0; i<removedDuplicatesList.length; i++) {
+			System.out.print(removedDuplicatesList[i] + " ");
+		}
+		sc.close();
+	}
+	
+	static int[] removeDuplicates(int[] values) {
+		int[] tempList = new int[values.length]; // Temporary List to hold distinct numbers
+		tempList[0] = values[0];
+		int currentIndex = 1; // It holds the index of the last filled element in the list
+		int flag = 0;
+		for(int i=1; i<values.length; i++) {
+			flag = 0;
+			for(int j=0; j<currentIndex; j++) {
+				if(tempList[j] == values[i]) {
+					flag = 1;
+					break;
+				}
+			}
+			if(flag == 0) {
+				tempList[currentIndex] = values[i];
+				currentIndex++;
+			}
+		}
+		int[] ans = new int[currentIndex];
+		for(int i=0; i<currentIndex; i++) {
+			ans[i] = tempList[i];
+		}
+		return ans;
+	}
+}
