@@ -1,3 +1,21 @@
+/*
+ *  Make a StringUtils class which contains following methods
+NOTE: You can use only String.charAt(), methods to code this problem.(Don't use any other inbuilt functions)
+static int countChar(String str,char ch)
+- Returns occurrence of the given character in the given String (str).
+static String substring(String str,int start,int end)
+- Returns a substring from the start index to end index with all validation checks.
+static String[] split(String str,char ch)
+- Returns an array of strings broken according to the occurrence of the given character with validation checks.
+static Boolean hasPattern(String str,String pattern)
+- Returns true if the give string (pattern) found in the main string (str) otherwise false.
+static Boolean allWordsContainsChar(String str,char ch)
+- Returns true if all words of the given string (str) contains the given character (ch)  otherwise false.
+static String reverse(String str)
+- Returns the reverse of the String (Without using extra String or array)
+static String reverseVowels(String str)
+ */
+
 import java.util.*;
 public class StringUtils {
 	public static void main(String[] args) {
