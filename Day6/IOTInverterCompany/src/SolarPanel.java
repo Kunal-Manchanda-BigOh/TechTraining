@@ -1,9 +1,18 @@
 
-public interface SolarPanel { //Interface to represent Solar Panel
-	public String modelNumber = "PP-30";
-	public String outputTolerance = "3%";
-	public double maxCurrent = 1.7;
-	public double maxVoltage = 18.0;
+public class SolarPanel {
 	
-	public void displaySolarPanelInfo();
+	private String modelNumber;
+	private String outputTolerance;
+	private double maxCurrent;
+	private double maxVoltage;
+	
+	public SolarPanel(String modelNumber, String outputTolerance, double maxCurrent, double maxVoltage) {
+		this.modelNumber = modelNumber;
+		this.outputTolerance = outputTolerance;
+		this.maxCurrent = maxCurrent;
+		this.maxVoltage = maxVoltage;
+	}
+	
+	
+	
 }

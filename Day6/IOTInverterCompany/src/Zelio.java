@@ -1,8 +1,8 @@
 
 public class Zelio extends NonSolarInverter {
 	
-	Zelio(double current, double voltage){
-		super("Zelio", current, voltage, true);
+	Zelio(double current, double voltage, Battery battery){
+		super("Zelio", current, voltage, battery);
 	}
 	
 }
