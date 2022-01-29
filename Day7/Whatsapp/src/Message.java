@@ -2,8 +2,6 @@ import java.util.*;
 
 public class Message {
 	private String content; //To hold the content of message
-	private User sender; //To hold the sender of message
-	private User receiver; //To hold the receiver of message
 	private Date dateAndTime; //To hold the date and time of message
 	private String type; //To hold the type of message(Text, audio and video)
 	private boolean seen; //To determine whether the message has been seen or not
@@ -19,22 +17,6 @@ public class Message {
 
 	public String getContent() { //To get the content of message
 		return content;
-	}
-
-	public User getSender() { //To get the sender of message
-		return sender;
-	}
-
-	public User getReceiver() { //To get the receiver of message
-		return receiver;
-	}
-	
-	public void setSender(User sender) {
-		this.sender = sender;
-	}
-
-	public void setReceiver(User receiver) {
-		this.receiver = receiver;
 	}
 	
 	public Date getDateAndTime() { //To get date and time of message

@@ -5,10 +5,10 @@ public class User {
 	private String name; //To hold the name of the user
 	private String mobileNumber; //To hold the mobile number of the user
 	private String about; //To hold the info about user
-	private ArrayList<User> contacts; //To hold the list of contacts of the user
+	private ArrayList<Contact> contacts; //To hold the list of contacts of the user
 	private ArrayList<Status> statuses; //To hold the statuses of the user
-	private ArrayList<Status> contactStatuses; //To hold the statuses of contacts
-	private ArrayList<Message> messages; //To hold the list of messages of the user
+	private HashMap<String, ArrayList<Status>> contactStatuses; //To hold the map of contact statuses in the form {mobile number of contact: list of status}
+	private HashMap<String, ArrayList<Message>> messages; //To hold the map of messages of the user in the form {mobile number of contact: list of messages}
 
 	User(String name, String mobileNumber){ //Constructor
 		this.name = name;
@@ -16,8 +16,8 @@ public class User {
 		this.about = "Hi, there i am using whatsapp";
 		this.contacts = new ArrayList<>();
 		this.statuses = new ArrayList<>();
-		this.contactStatuses = new ArrayList<>();
-		this.messages = new ArrayList<>();
+		this.contactStatuses = new HashMap<String, ArrayList<Status>>();
+		this.messages = new HashMap<String, ArrayList<Message>>();
 		this.contacts = new ArrayList<>();
 	}
 	
@@ -33,7 +33,7 @@ public class User {
 		return about;
 	}
 
-	public ArrayList<User> getContacts() { //To get the list of contacts of the user
+	public ArrayList<Contact> getContacts() { //To get the list of contacts of the user
 		return contacts;
 	}
 
@@ -41,11 +41,11 @@ public class User {
 		return statuses;
 	}
 	
-	public ArrayList<Status> getContactStatuses(){ //To get the statuses of the contacts
+	public HashMap<String, ArrayList<Status>> getContactStatuses(){ //To get the statuses of the contacts
 		return contactStatuses;
 	}
 	
-	public ArrayList<Message> getMessages(){ //To get all messages of user
+	public HashMap<String, ArrayList<Message>> getMessages(){ //To get all messages of user
 		return messages;
 	}
 	
@@ -53,31 +53,24 @@ public class User {
 		this.about = value;
 	}
 	
-	public void addContact(User contact) { //To add contact
+	public void addContact(Contact contact) { //To add contact
 		contacts.add(contact);
+		contactStatuses.put(contact.getMobileNumber(), contact.getStatuses());
 	}
 	
-	public void postStatus(Status status){ //To post a status and send it to all the contacts
-		status.setUploadedBy(this);
+	public void postStatus(Status status){ //To post a status
 		statuses.add(status);
-		ArrayList<User> contacts = this.getContacts();
-		for(User contact: contacts) {
-			contact.addContactStatus(status);
-		}
 	}
 	
-	public void addContactStatus(Status status) { //To add contact status
-		this.contactStatuses.add(status);
+	public void chatWithContact(Contact contact, Message message) { //To chat with particular contact
+		ArrayList<Message> previousMessagesWithContact = messages.get(contact.getMobileNumber());
+		previousMessagesWithContact.add(message);
+		messages.put(contact.getMobileNumber(), previousMessagesWithContact);
 	}
 	
-	public void chatWithContact(User contact, Message message) { //To chat with particular contact
-		message.setSender(this);
-		message.setReceiver(contact);
-		messages.add(message);
-	}
-	
-	public void viewStatus(User contact, Status status) { //To view status of particular contact
-		Status currentStatus = contact.getStatuses().get(contact.getStatuses().indexOf(status));
+	public void viewStatus(Status status) { //To view status of particular contact
+		List<Status> statusList = contactStatuses.get(status.getUploadedBy());
+		Status currentStatus = statusList.get(statusList.indexOf(status));
 		currentStatus.setViewedBy(this);
 	}
 	
