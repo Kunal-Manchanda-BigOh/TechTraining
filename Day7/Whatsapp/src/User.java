@@ -63,7 +63,9 @@ public class User {
 	}
 	
 	public void chatWithContact(Contact contact, Message message) { //To chat with particular contact
-		ArrayList<Message> previousMessagesWithContact = messages.get(contact.getMobileNumber());
+		ArrayList<Message> previousMessagesWithContact =new ArrayList<Message>();
+		if(messages.get(contact.getMobileNumber()) != null)
+			previousMessagesWithContact.addAll(messages.get(contact.getMobileNumber()));
 		previousMessagesWithContact.add(message);
 		messages.put(contact.getMobileNumber(), previousMessagesWithContact);
 	}
